@@ -23,19 +23,19 @@ pip install -r requirements.txt
 <h3>Шифрование файла</h3>
 
 <pre>
-python crypt.py encrypt <method> <input-file> <key-file>
+python crypt.py encrypt input_file key
 </pre>
 
 <h3>Расшифровка файла</h3>
 
 <pre>
-python crypt.py decrypt <method> <input-file> <key-file>
+python crypt.py decrypt input_file key
 </pre>
 
 <h3>Взлом файла</h3>
 
 <pre>
-python crypt.py crack <method> <input-file>
+python crypt.py crack input_file
 </pre>
 
 <h2>Доступные методы шифрования</h2>
