@@ -23,19 +23,19 @@ pip install -r requirements.txt
 <h3>Шифрование файла</h3>
 
 <pre>
-python crypt.py encrypt <method> <input-file> <key-file>
+python crypt.py encrypt  input-file
 </pre>
 
 <h3>Расшифровка файла</h3>
 
 <pre>
-python crypt.py decrypt <method> <input-file> <key-file>
+python crypt.py decrypt input-file
 </pre>
 
 <h3>Взлом файла</h3>
 
 <pre>
-python crypt.py crack <method> <input-file>
+python crypt.py crack input-file
 </pre>
 
 <h2>Доступные методы шифрования</h2>
@@ -50,4 +50,3 @@ python crypt.py crack <method> <input-file>
 <h2>Поддержка</h2>
 
 <p>Если у вас возникли вопросы или проблемы, создайте <a href="https://github.com/dimatveev/cryptpy/issues">issue</a> на GitHub.</p>
-
