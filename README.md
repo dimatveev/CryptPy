@@ -44,7 +44,8 @@ python crypt.py crack input_file
     <li><code>caesar</code>: Шифр Цезаря</li>
     <li><code>vigenere</code>: Шифр Виженера</li>
     <li><code>vernam</code>: Шифр Вернама</li>
-    ...
+    <li><code>atbash</code>: Шифр Атбаш</li>
+    <li><code>rsa</code>: Шифр RSA</li>
 </ol>
 
 <h2>Поддержка</h2>
