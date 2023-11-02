@@ -3,7 +3,7 @@ import click
 """Импортируем библиотеку click для работы с командной строкой"""
 
 class Caesar:
-    def encrypt_eng(self, plaintext, key):
+    def encrypt(self, plaintext, key):
         """
         Шифрование текста алгоритмом Цезаря (английский алфавит).
 
@@ -28,7 +28,7 @@ class Caesar:
                 ciphertext += char
         return ciphertext
 
-    def decipher_eng(self, ciphertext, key):
+    def decipher(self, ciphertext, key):
         """
         Дешифрует английский текст, зашифрованный методом Цезаря, используя заданный ключ.
 
@@ -40,9 +40,9 @@ class Caesar:
         :return: str
             Дешифрованный текст.
         """
-        return self.encrypt_eng(ciphertext, -key)
+        return self.encrypt(ciphertext, -key)
 
-    def crack_eng(self, ciphertext):
+    def crack(self, ciphertext):
         """
         Пытается взломать и дешифровать английский текст, зашифрованный методом Цезаря, без знания ключа.
 
@@ -74,7 +74,7 @@ class Caesar:
 
         most_freq_cipherletter = max(cipher_freqs, key=cipher_freqs.get)
         likely_key = ord(most_freq_cipherletter) - ord('E')
-        deciphered_text = self.decipher_eng(ciphertext, likely_key)
+        deciphered_text = self.decipher(ciphertext, likely_key)
 
         return deciphered_text
 
@@ -111,7 +111,7 @@ class Vigenere:
         else:
             return char
 
-    def encrypt_eng(self, plaintext, key):
+    def encrypt(self, plaintext, key):
         """
         Шифрование текста алгоритмом Виженера (английский алфавит).
 
@@ -128,7 +128,7 @@ class Vigenere:
 
         return ciphertext
 
-    def decipher_eng(self, ciphertext, key):
+    def decipher(self, ciphertext, key):
         """
         Расшифровывает текст, используя алгоритм Виженера.
 
@@ -154,7 +154,7 @@ class Vernam:
     """
     Инициализация алгоритма Виженера.
     """
-    def encrypt_eng(self, plaintext, key):
+    def encrypt(self, plaintext, key):
         """
         Шифрование текста алгоритмом Вернама (английский алфавит).
 
@@ -176,7 +176,7 @@ class Vernam:
             ciphertext += chr(xor_result)
         return ciphertext
 
-    def decipher_eng(self, ciphertext, key):
+    def decipher(self, ciphertext, key):
         """
         Расшифровывает текст, используя алгоритм Вернама.
 
@@ -226,37 +226,37 @@ def operate(mode, filepath, key):
     """
     Операция шифрования и дешифрования в зависимости от выбранного режима.
 
-    :param mode: Режим операции (например, "caesar-encrypt_eng").
+    :param mode: Режим операции (например, "caesar-encrypt").
     :param filepath: Путь к файлу с текстом.
     :param key: Ключ или ключевое слово. Необязательный для некоторых режимов.
     """
     with open(filepath, 'r') as file:
         text = file.read()
-    if mode == 'caesar-encrypt_eng':
+    if mode == 'caesar-encrypt':
         caesar = Caesar()
-        result = caesar.encrypt_eng(text, int(key))
-    elif mode == 'caesar-decipher_eng':
+        result = caesar.encrypt(text, int(key))
+    elif mode == 'caesar-decipher':
         caesar = Caesar()
-        result = caesar.decipher_eng(text, int(key))
-    elif mode == 'caesar-crack_eng':
+        result = caesar.decipher(text, int(key))
+    elif mode == 'caesar-crack':
         caesar = Caesar()
-        result = caesar.crack_eng(text)
-    elif mode == 'vigenere-encrypt_eng':
+        result = caesar.crack(text)
+    elif mode == 'vigenere-encrypt':
         vigenere = Vigenere()
-        result = vigenere.encrypt_eng(text, key)
-    elif mode == 'vigenere-decipher_eng':
+        result = vigenere.encrypt(text, key)
+    elif mode == 'vigenere-decipher':
         vigenere = Vigenere()
-        result = vigenere.decipher_eng(text, key)
-    elif mode == 'vernam-encrypt_eng':
+        result = vigenere.decipher(text, key)
+    elif mode == 'vernam-encrypt':
         vernam = Vernam()
-        result = vernam.encrypt_eng(text, key)
-    elif mode == 'vernam-decipher_eng':
+        result = vernam.encrypt(text, key)
+    elif mode == 'vernam-decipher':
         vernam = Vernam()
-        result = vernam.decipher_eng(text, key)
+        result = vernam.decipher(text, key)
     else:
         result = "Invalid mode"
     print(result)
-
+    
 
 if __name__ == '__main__':
     cli()
