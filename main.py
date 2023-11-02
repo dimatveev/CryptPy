@@ -52,8 +52,31 @@ class Caesar:
         :return: str
             Дешифрованный текст или сообщение, что текст был расшифрован.
         """
-        # hack
-        return "Deciphered text"
+
+        # Частоты букв в английском языке
+        english_freqs = {
+            'A': 0.08167, 'B': 0.01492, 'C': 0.02782, 'D': 0.04253,
+            'E': 0.12702, 'F': 0.02228, 'G': 0.02015, 'H': 0.06094,
+            'I': 0.06966, 'J': 0.00153, 'K': 0.00772, 'L': 0.04025,
+            'M': 0.02406, 'N': 0.06749, 'O': 0.07507, 'P': 0.01929,
+            'Q': 0.00095, 'R': 0.05987, 'S': 0.06327, 'T': 0.09056,
+            'U': 0.02758, 'V': 0.00978, 'W': 0.02360, 'X': 0.00150,
+            'Y': 0.01974, 'Z': 0.00074
+        }
+
+        cipher_freqs = {}
+        for letter in ciphertext:
+            if letter.upper() in english_freqs:
+                if letter.upper() in cipher_freqs:
+                    cipher_freqs[letter.upper()] += 1
+                else:
+                    cipher_freqs[letter.upper()] = 1
+
+        most_freq_cipherletter = max(cipher_freqs, key=cipher_freqs.get)
+        likely_key = ord(most_freq_cipherletter) - ord('E')
+        deciphered_text = self.decipher_eng(ciphertext, likely_key)
+
+        return deciphered_text
 
 
 class Vigenere:
@@ -186,6 +209,8 @@ class Vernam:
 
 
 
+import click
+
 @click.group()
 def cli():
     """
@@ -196,14 +221,14 @@ def cli():
 @cli.command()
 @click.argument('mode')
 @click.argument('filepath')
-@click.argument('key')
+@click.argument('key', required=False, default=None)
 def operate(mode, filepath, key):
     """
     Операция шифрования и дешифрования в зависимости от выбранного режима.
 
     :param mode: Режим операции (например, "caesar-encrypt_eng").
     :param filepath: Путь к файлу с текстом.
-    :param key: Ключ или ключевое слово.
+    :param key: Ключ или ключевое слово. Необязательный для некоторых режимов.
     """
     with open(filepath, 'r') as file:
         text = file.read()
