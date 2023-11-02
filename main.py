@@ -211,6 +211,13 @@ class Vernam:
 
 
 class Atbash:
+    """
+    Atbash Cipher:
+
+    A substitution cipher where each letter in the plaintext is replaced
+    by the letter in the same position from the end of the alphabet.
+    For example, 'A' is replaced with 'Z', 'B' with 'Y', and so on.
+    """
     def __init__(self):
         self.alphabet = 'abcdefghijklmnopqrstuvwxyz'
         self.atbash_alphabet = self.alphabet[::-1]
