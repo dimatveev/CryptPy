@@ -1,4 +1,6 @@
 import click
+import random
+
 # -*- coding: utf-8 -*-
 """Импортируем библиотеку click для работы с командной строкой"""
 
@@ -208,8 +210,91 @@ class Vernam:
         return plaintext
 
 
+class Atbash:
+    def __init__(self):
+        self.alphabet = 'abcdefghijklmnopqrstuvwxyz'
+        self.atbash_alphabet = self.alphabet[::-1]
 
-import click
+    def encrypt(self, plaintext):
+        ciphertext = ''
+        for char in plaintext.lower():
+            if char in self.alphabet:
+                index = self.alphabet.index(char)
+                ciphertext += self.atbash_alphabet[index]
+            else:
+                ciphertext += char
+        return ciphertext
+
+    def decipher(self, ciphertext):
+        """Дешифровать текст, зашифрованный шифром Atbash."""
+        return self.encrypt(ciphertext)
+
+
+class RSA:
+    def __init__(self, p=None, q=None):
+        if not p or not q:
+            self.p = self.generate_prime()
+            self.q = self.generate_prime()
+        else:
+            self.p = p
+            self.q = q
+        self.n = self.p * self.q
+        self.phi = (self.p - 1) * (self.q - 1)
+        self.e = self.find_e(self.phi)
+        self.d = self.mod_inverse(self.e, self.phi)
+
+    def generate_prime(self, start=1000, end=9999):
+        """Создать простое число в заданном диапазоне."""
+        num = random.randint(start, end)
+        while not self.is_prime(num):
+            num += 1
+        return num
+
+    def is_prime(self, num):
+        """Проверка на простоту."""
+        if num < 2:
+            return False
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    def find_e(self, phi):
+        """Найти число e, взаимно простое с phi."""
+        e = 2
+        while True:
+            if self.gcd(e, phi) == 1:
+                return e
+            e += 1
+
+    def gcd(self, a, b):
+        """Наибольший общий делитель."""
+        if b == 0:
+            return a
+        else:
+            return self.gcd(b, a % b)
+
+    def mod_inverse(self, a, m):
+        """Найти обратное число по модулю."""
+        m0, x0, x1 = m, 0, 1
+        while a > 1:
+            q = a // m
+            m, a = a % m, m
+            x0, x1 = x1 - q * x0, x0
+        if x1 < 0:
+            x1 += m0
+        return x1
+
+    def encrypt(self, plaintext):
+        """Зашифровать сообщение."""
+        ciphertext = [pow(ord(char), self.e, self.n) for char in plaintext]
+        return ciphertext
+
+    def decipher(self, ciphertext):
+        """Расшифровать сообщение."""
+        plaintext = ''.join([chr(pow(char, self.d, self.n)) for char in ciphertext])
+        return plaintext
+
 
 @click.group()
 def cli():
@@ -253,6 +338,18 @@ def operate(mode, filepath, key):
     elif mode == 'vernam-decipher':
         vernam = Vernam()
         result = vernam.decipher(text, key)
+    elif mode == 'atbash-encrypt':
+        atbash = Atbash()
+        result = atbash.encrypt(text)
+    elif mode == 'atbash-decipher':
+        atbash = Atbash()
+        result = atbash.decipher(text)
+    elif mode == 'rsa-encrypt':
+        rsa = RSA()
+        result = rsa.encrypt(text)
+    elif mode == 'rsa-decipher':
+        rsa = RSA()
+        result = rsa.decipher(text)
     else:
         result = "Invalid mode"
     print(result)
