@@ -8,7 +8,6 @@ class Caesar:
     def encrypt(self, plaintext, key):
         """
         Шифрование текста алгоритмом Цезаря (английский алфавит).
-
         :param plaintext: Открытый текст.
         :param key: Ключ (сдвиг).
         :return: Зашифрованный текст.
