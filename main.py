@@ -4,6 +4,7 @@ import random
 # -*- coding: utf-8 -*-
 """Импортируем библиотеку click для работы с командной строкой"""
 
+
 class Caesar:
     def encrypt(self, plaintext, key):
         """
@@ -155,6 +156,7 @@ class Vernam:
     """
     Инициализация алгоритма Виженера.
     """
+
     def encrypt(self, plaintext, key):
         """
         Шифрование текста алгоритмом Вернама (английский алфавит).
@@ -217,6 +219,7 @@ class Atbash:
     by the letter in the same position from the end of the alphabet.
     For example, 'A' is replaced with 'Z', 'B' with 'Y', and so on.
     """
+
     def __init__(self):
         self.alphabet = 'abcdefghijklmnopqrstuvwxyz'
         self.atbash_alphabet = self.alphabet[::-1]
@@ -260,7 +263,7 @@ class RSA:
         """Проверка на простоту."""
         if num < 2:
             return False
-        for i in range(2, int(num**0.5) + 1):
+        for i in range(2, int(num ** 0.5) + 1):
             if num % i == 0:
                 return False
         return True
@@ -308,6 +311,7 @@ def cli():
     Основная группа команд для работы с шифровальщиками.
     """
     pass
+
 
 @cli.command()
 @click.argument('mode')
@@ -359,7 +363,7 @@ def operate(mode, filepath, key):
     else:
         result = "Invalid mode"
     print(result)
-    
+
 
 if __name__ == '__main__':
     cli()
