@@ -1,6 +1,6 @@
 <h1>CryptPy</h1>
 
-<p>CryptPy - это мощный инструмент командной строки для шифрования, дешифрования и взлома файлов с использованием различных криптографических алгоритмов.</p>
+<p>CryptPy - это мощный инструмент командной строки для шифрования, дешифрования и взлома файлов с использованием различных криптографических алгоритмов на английском языке.</p>
 
 <h2>Особенности</h2>
 
@@ -23,19 +23,20 @@ pip install -r requirements.txt
 <h3>Шифрование файла</h3>
 
 <pre>
-python crypt.py encrypt input_file key
+python main.py operate (метод шифрования)-encrypt encrypt.txt key
+
 </pre>
 
 <h3>Расшифровка файла</h3>
 
 <pre>
-python crypt.py decrypt input_file key
+python main.py operate (метод шифрования)-decipher decipher.txt key
 </pre>
 
-<h3>Взлом файла</h3>
+<h3>Взлом файла зашифрованного шифром Цезаря </h3>
 
 <pre>
-python crypt.py crack input_file
+python main.py operate caesar-crack encrypt.txt
 </pre>
 
 <h2>Доступные методы шифрования</h2>
